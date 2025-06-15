@@ -169,8 +169,8 @@ if menu == "📄 Lihat Data":
                 st.success(f"Berhasil menghapus baris dengan ID: {ids_to_delete}")
             else:
                 st.warning("Pilih minimal satu baris untuk dihapus.")
-            else:
-                st.markdown("🔒 Fitur hapus hanya untuk admin. Login di sidebar untuk akses.")
+        else:
+            st.markdown("🔒 Fitur hapus hanya untuk admin. Login di sidebar untuk akses.")
 
 # ==== Entri Baru ====
 elif menu == "➕ Entri Data Baru":
