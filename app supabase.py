@@ -90,9 +90,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==== Header & Sidebar ====
-st.image(
-    "D:/2. MAGANG BISMILLAH/MERATUS/Customer_Guidance_Invoicing_Streamlit_App/Logo-MGLog.png",
-    width=240
+st.markdown(
+    '<img src="https://www.freight-hub.co/wp-content/uploads/2023/11/Logo-MGLog.png.webp" width="240"/>',
+    unsafe_allow_html=True
 )
 st.title("Customer Guidance Invoicing Form")
 
