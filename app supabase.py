@@ -99,6 +99,16 @@ st.title("Customer Guidance Invoicing Form")
 menu = st.sidebar.radio("Menu", ["📄 Lihat Data", "➕ Entri Data Baru"], 
                         index=0 if st.session_state.menu == "📄 Lihat Data" else 1)
 
+# ==== Proteksi Admin untuk Fitur Hapus ====
+is_admin = False
+with st.sidebar.expander("🔐 Login Admin untuk Hapus Data"):
+    password = st.text_input("Masukkan Password Admin:", type="password")
+    if password == st.secrets["ADMIN_PASSWORD"]:
+        is_admin = True
+        st.success("Login Admin berhasil!")
+    elif password != "":
+        st.error("Password salah.")
+
 # ==== Lihat Data ====
 if menu == "📄 Lihat Data":
     st.subheader("📋 Data Customer Guidance Invoicing")
@@ -134,23 +144,13 @@ if menu == "📄 Lihat Data":
         
         st.dataframe(filtered_df, use_container_width=True)
 
-        #Tombol Edit
-        #st.markdown("### ✏️ Edit Baris")
-
-        #for index, row in filtered_df.iterrows():
-        #    if st.button(f"Edit ID {row['ID']}", key=f"edit_{row['ID']}"):
-        #        st.session_state.edit_mode = True
-        #       st.session_state.edit_data = row.to_dict()
-        #       st.session_state.menu = "➕ Entri Data Baru"
-        #       st.experimental_rerun()
-
         #Garis Pemisah Visual
         st.markdown("---")
 
-        #Judul Hapus Baris 
-        st.markdown("### Hapus Baris")
+        # Proteksi admin: hanya tampil jika login berhasil
+        if is_admin:
+            st.markdown("### Hapus Baris")
         
-        # Pilih baris untuk dihapus berdasarkan ID yang ada di filtered_df
         ids_to_delete = st.multiselect(
             "Pilih baris yang ingin dihapus (berdasarkan ID):",
             options=filtered_df['ID'].tolist()
@@ -158,10 +158,7 @@ if menu == "📄 Lihat Data":
 
         if st.button("Hapus Data Terpilih"):
             if ids_to_delete:
-                # Hapus data dari database (MySQL)
                 delete_customer_data(ids_to_delete) 
-
-                # Refresh data di aplikasi
                 data = fetch_customer_data()
                 st.session_state.df_display = pd.DataFrame(data, columns=[
                     "ID", "Business Segment", "Division", "Kode Debtor", "Debtor Name",
@@ -172,6 +169,8 @@ if menu == "📄 Lihat Data":
                 st.success(f"Berhasil menghapus baris dengan ID: {ids_to_delete}")
             else:
                 st.warning("Pilih minimal satu baris untuk dihapus.")
+            else:
+                st.markdown("🔒 Fitur hapus hanya untuk admin. Login di sidebar untuk akses.")
 
 # ==== Entri Baru ====
 elif menu == "➕ Entri Data Baru":
