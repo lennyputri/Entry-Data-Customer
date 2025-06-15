@@ -1,9 +1,8 @@
+import streamlit as st
 from supabase import create_client, Client
-import os
 
-#Koneksi ke database
-SUPABASE_URL = "https://fhlypkmtwxhbdvhvdock.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZobHlwa210d3hoYmR2aHZkb2NrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAwMDEwMDYsImV4cCI6MjA2NTU3NzAwNn0.AuvyJ1sXyd_0G386KLRmKWsyFiLgbuYbV09oLiJ3pPA"
+SUPABASE_URL = st.secrets["SUPABASE_URL"]
+SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # ===== Ambil semua data dari tabel =====
