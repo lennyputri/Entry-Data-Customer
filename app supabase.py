@@ -178,8 +178,8 @@ elif menu == "➕ Entri Data Baru":
     st.subheader("📝 Tambah Data Customer Guidance Invoicing")
     
     #Ambil state untuk edit mode
-    edit_mode = st.session_state.edit_mode
-    edit_data = st.session_state.edit_data if edit_mode else {}
+    edit_mode = False
+    edit_data = {}
 
     with st.form("form_customer_invoice"):
         col1, col2 = st.columns(2)
@@ -265,20 +265,8 @@ elif menu == "➕ Entri Data Baru":
                     </div>
                 """, unsafe_allow_html=True)
             else:
-                if edit_mode:
-                    update_customer_data(
-                        edit_data["ID"],
-                        (
-                            business_segment, division, kode_debtor.strip(), debtor_name.strip(), sales_name.strip(),
-                            id_pol, id_pod, cabang_tagih.strip(), alamat_kirim_invoice.strip(), invoice_type, ", ".join(dokumen_terkait)
-                        )
-                    )
-                    st.markdown("<div style='background-color:white; color:green; padding:10px;'>✅ Data berhasil diperbarui.</div>", unsafe_allow_html=True)
-                    st.session_state.edit_mode = False
-                    st.session_state.edit_data = None
-                else:
-                    insert_customer_data((
+                insert_customer_data((
                         business_segment, division, kode_debtor.strip(), debtor_name.strip(), sales_name.strip(),
                         id_pol, id_pod, cabang_tagih.strip(), alamat_kirim_invoice.strip(), invoice_type, ", ".join(dokumen_terkait)
-                    ))
-                    st.markdown("<div style='background-color:white; color:green; padding:10px;'>✅ Data Customer Guidance Invoicing berhasil disimpan.</div>", unsafe_allow_html=True)
+                ))
+                st.markdown("<div style='background-color:white; color:green; padding:10px;'>✅ Data Customer Guidance Invoicing berhasil disimpan.</div>", unsafe_allow_html=True)
