@@ -198,7 +198,7 @@ if menu == "📂 Lihat Data":
                 
         # ===== Dialog Konfirmasi =======        
         if st.session_state.get("show_confirm", False):
-            with st.expander("⚠️ Konfirmasi Hapus", expanded=True):
+            with st.expander('<span style="font-size:20px; font-weight:bold;">⚠️ Konfirmasi Hapus</span>', expanded=True):
                 st.markdown(
                     f"""
                     <div style="background-color:#fedddb; padding:10px; border:2px solid #bd0606; border-radius:12px; margin-bottom:20px;">
