@@ -94,7 +94,7 @@ st.markdown(
     '<img src="https://www.freight-hub.co/wp-content/uploads/2023/11/Logo-MGLog.png.webp" width="240"/>',
     unsafe_allow_html=True
 )
-st.title("Customer Guidance Invoicing Form")
+st.title("Form Kebutuhan Dokumen Invoice Customer")
 
 menu = st.sidebar.radio("Menu", ["📄 Lihat Data", "➕ Entri Data Baru"], 
                         index=0 if st.session_state.menu == "📄 Lihat Data" else 1)
