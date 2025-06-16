@@ -22,11 +22,20 @@ st.markdown("""
             outline: none !important;
         }
 
-        div[data-baseweb="input"] input[type="password"] {
+        div[data-baseweb="input"] {
             border: 2px solid #d90429;
             border-radius: 8px;
-            padding: 8px;
+            padding: 4px;
+            background-color: white;
         }
+
+        div[data-baseweb="input"] input {
+            border: none;
+            padding: 8px;
+            background-color: transparent;
+            color: black;
+        }
+
         
         /* Input dan Textarea */
         div[data-baseweb="input"] input,
@@ -181,7 +190,7 @@ if menu == "📂 Lihat Data":
                 else:
                     st.warning("Pilih minimal satu baris untuk dihapus.")
         else:
-            st.markdown("🔒 Fitur hapus hanya untuk admin. Login di sidebar untuk akses.")
+            st.markdown("🔒 Fitur hapus data hanya untuk admin. Login di sidebar untuk akses.")
 
 # ==== Entri Baru ====
 elif menu == "🖥️ Entri Data Baru":
