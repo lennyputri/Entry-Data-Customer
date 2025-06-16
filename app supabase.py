@@ -197,8 +197,15 @@ if menu == "📂 Lihat Data":
                 st.session_state.show_confirm = True
                 
         # ===== Dialog Konfirmasi =======        
-        if st.session_state.get("show_confirm", False):
-            with st.expander('<span style="font-size:20px; font-weight:bold;">⚠️ Konfirmasi Hapus</span>', expanded=True):
+        if st.session_state.get("show_confirm", False):          
+            with st.expander("", expanded=True):
+                # Judul custom
+                st.markdown(
+                    "<div style='font-size:22px; font-weight:bold; color:#d90429;'>⚠️ Konfirmasi Hapus</div>",
+                    unsafe_allow_html=True
+                )
+
+                # Box pesan konfirmasi
                 st.markdown(
                     f"""
                     <div style="background-color:#fedddb; padding:10px; border:2px solid #bd0606; border-radius:12px; margin-bottom:20px;">
