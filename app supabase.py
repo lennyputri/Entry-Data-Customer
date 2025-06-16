@@ -108,6 +108,15 @@ st.markdown("""
         h1 {
             color: #0A2647;
         }
+
+        /* Styling box sukses login admin */
+        div[data-testid="stAlertSuccess"] {
+            background-color: white !important;
+            color: #2e7d32 !important;  /* hijau */
+            border: 2px solid #2e7d32 !important;
+            border-radius: 8px;
+            font-weight: bold;
+        }
     </style>
 """, unsafe_allow_html=True)
 
