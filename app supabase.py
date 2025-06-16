@@ -110,7 +110,7 @@ st.markdown("""
         }
 
         /* Styling box sukses login admin */
-        div[data-testid="stAlertSuccess"] {
+        di.stAlert {
             background-color: white !important;
             color: #2e7d32 !important;  /* hijau */
             border: 2px solid #2e7d32 !important;
