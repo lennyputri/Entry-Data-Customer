@@ -199,9 +199,16 @@ if menu == "📂 Lihat Data":
         # ===== Dialog Konfirmasi =======        
         if st.session_state.get("show_confirm", False):
             with st.expander("⚠️ Konfirmasi Hapus", expanded=True):
-                st.warning(
-                    f"Apakah Anda yakin ingin menghapus data dengan ID: "
-                    f"{st.session_state.ids_to_delete} ?"
+                st.markdown(
+                    f"""
+                    <div style="background-color:#fff6f6; padding:15px; border:2px solid #d90429; border-radius:12px;">
+                        <strong style="color:#d90429; font-size:16px;">
+                            Apakah Anda yakin ingin menghapus data dengan ID:
+                            <span style="color:#a4001d;">{st.session_state.get("ids_to_delete", [])}</span>
+                        </strong>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
                 )
                 col1, col2 = st.columns(2)
 
