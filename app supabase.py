@@ -229,22 +229,7 @@ if menu == "📂 Lihat Data":
                             "Invoice Type", "Dokumen Terkait"
                         ]
                     )
-                
-                if confirm:
-                    delete_customer_data(st.session_state.ids_to_delete)
-
-                    #Refresh Tabel
-                    data = fetch_customer_data()
-                    st.session_state.df_display = pd.DataFrame(
-                        data,
-                        columns=[
-                            "ID", "Business Segment", "Division", "Kode Debtor",
-                            "Debtor Name", "Sales Name", "ID POL", "ID POD",
-                            "Cabang Tagih", "Alamat Kirim Invoice",
-                            "Invoice Type", "Dokumen Terkait"
-                        ]
-                    )
-                    
+                                 
                     st.success(
                         f"Berhasil menghapus baris dengan ID: {st.session_state.ids_to_delete}"
                     )
