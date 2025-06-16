@@ -238,10 +238,6 @@ if menu == "📂 Lihat Data":
                     st.session_state.confirm_click = None
                     st.session_state.ids_to_delete = []
                     st.experimental_rerun()
-                    
-                elif delete:
-                    st.info("Penghapusan dibatalkan.")
-                    st.session_state.show_confirm = False
         else:
             st.markdown("🔒 Fitur hapus data hanya untuk admin. Login di sidebar untuk akses.")
 
