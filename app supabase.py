@@ -96,8 +96,8 @@ st.markdown(
 )
 st.title("Form Kebutuhan Dokumen Invoice Customer")
 
-menu = st.sidebar.radio("Menu", ["📄 Lihat Data", "➕ Entri Data Baru"], 
-                        index=0 if st.session_state.menu == "📄 Lihat Data" else 1)
+menu = st.sidebar.radio("Menu", ["📂 Lihat Data", "🖥️ Entri Data Baru"], 
+                        index=0 if st.session_state.menu == "📂 Lihat Data" else 1)
 
 # ==== Proteksi Admin untuk Fitur Hapus ====
 is_admin = False
@@ -110,7 +110,7 @@ with st.sidebar.expander("🔐 Login Admin untuk Hapus Data"):
         st.error("Password salah.")
 
 # ==== Lihat Data ====
-if menu == "📄 Lihat Data":
+if menu == "📂 Lihat Data":
     st.subheader("📋 Data Customer Guidance Invoicing")
     data = fetch_customer_data()
     if data:
@@ -172,7 +172,7 @@ if menu == "📄 Lihat Data":
                 st.markdown("🔒 Fitur hapus hanya untuk admin. Login di sidebar untuk akses.")
 
 # ==== Entri Baru ====
-elif menu == "➕ Entri Data Baru":
+elif menu == "🖥️ Entri Data Baru":
     st.subheader("📝 Tambah Data Customer Guidance Invoicing")
     
     #Ambil state untuk edit mode
