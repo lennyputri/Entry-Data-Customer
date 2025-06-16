@@ -22,18 +22,19 @@ st.markdown("""
             outline: none !important;
         }
 
+        div[data-baseweb="input"] input {
+            border: none !important;
+            outline : none !important;
+            padding: 8px;
+            background-color: transparent;
+            color : black:
+        }
+
         div[data-baseweb="input"] {
             border: 2px solid #d90429;
             border-radius: 8px;
-            padding: 4px;
             background-color: white;
-        }
-
-        div[data-baseweb="input"] input {
-            border: none;
-            padding: 8px;
-            background-color: transparent;
-            color: black;
+            padding: 4px;
         }
 
         
