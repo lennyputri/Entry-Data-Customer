@@ -16,6 +16,18 @@ if "menu" not in st.session_state:
 # ==== CSS Styling ====
 st.markdown("""
     <style>
+        /* Tambahan untuk border merah password */
+        input:invalid {
+            box-shadow: none !important;
+            outline: none !important;
+        }
+
+        div[data-baseweb="input"] input[type="password"] {
+            border: 2px solid #d90429;
+            border-radius: 8px;
+            padding: 8px;
+        }
+        
         /* Input dan Textarea */
         div[data-baseweb="input"] input,
         div[data-baseweb="textarea"] textarea,
@@ -168,8 +180,8 @@ if menu == "📂 Lihat Data":
                     st.success(f"Berhasil menghapus baris dengan ID: {ids_to_delete}")
                 else:
                     st.warning("Pilih minimal satu baris untuk dihapus.")
-            else:
-                st.markdown("🔒 Fitur hapus hanya untuk admin. Login di sidebar untuk akses.")
+        else:
+            st.markdown("🔒 Fitur hapus hanya untuk admin. Login di sidebar untuk akses.")
 
 # ==== Entri Baru ====
 elif menu == "🖥️ Entri Data Baru":
