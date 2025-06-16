@@ -131,7 +131,7 @@ with st.sidebar.expander("🔐 Login Admin untuk Hapus Data"):
             <div style='background-color: #d4edda; border: 2px solid #2e7d32;
                         padding: 12px; border-radius: 8px; color: #2e7d32;
                         font-weight: bold;'>
-                ✅Login Admin berhasil!
+                ✅ Login Admin berhasil!
                 </div>
         """, unsafe_allow_html=True)
     elif password != "":
@@ -139,7 +139,7 @@ with st.sidebar.expander("🔐 Login Admin untuk Hapus Data"):
             <div style='background-color: #f8d7da; border: 2px solid #b71c1c;
                         padding: 12px; border-radius: 8px; color: #b71c1c;
                         font-weight: bold;'>
-                ❌Password Admin salah !
+                ❌ Password Admin salah !
             </div>
         """, unsafe_allow_html=True)
 
