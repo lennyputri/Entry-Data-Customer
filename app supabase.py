@@ -201,7 +201,7 @@ if menu == "📂 Lihat Data":
             with st.expander("", expanded=True):
                 # Judul custom
                 st.markdown(
-                    "<div style='font-size:22px; font-weight:bold; color:#d90429;'>⚠️ Konfirmasi Hapus</div>",
+                    "<div style='font-size:22px; font-weight:bold; color:#0a0101; margin-bottom:10px;'>⚠️ Konfirmasi Hapus</div>",
                     unsafe_allow_html=True
                 )
 
