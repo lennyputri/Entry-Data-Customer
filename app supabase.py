@@ -36,7 +36,6 @@ st.markdown("""
             background-color: white;
             padding: 4px;
         }
-
         
         /* Input dan Textarea */
         div[data-baseweb="input"] input,
@@ -109,14 +108,6 @@ st.markdown("""
             color: #0A2647;
         }
 
-        /* Styling box sukses login admin */
-        di.stAlert {
-            background-color: white !important;
-            color: #2e7d32 !important;  /* hijau */
-            border: 2px solid #2e7d32 !important;
-            border-radius: 8px;
-            font-weight: bold;
-        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -136,7 +127,13 @@ with st.sidebar.expander("🔐 Login Admin untuk Hapus Data"):
     password = st.text_input("Masukkan Password Admin:", type="password")
     if password == st.secrets["ADMIN_PASSWORD"]:
         is_admin = True
-        st.success("Login Admin berhasil!")
+        st.markdown("""
+            <div style='background-color: #d4edda; border: 2px solid #2e7d32;
+                        padding: 12px; border-radius: 8px; color: #2e7d32;
+                        font-weight: bold;'>
+                ✅ Login Admin berhasil!
+                </div>
+        """, unsafe_allow_html=True)
     elif password != "":
         st.error("Password salah.")
 
