@@ -210,9 +210,9 @@ if menu == "📂 Lihat Data":
                 st.markdown(
                     f"""
                     <div style="background-color:#dbeafe; padding:15px; border:2px solid #2563eb; border-radius:12px;">
-                        <strong style="color:#1e3a8a; font-size:16px;">
+                        <strong style="color:white; font-size:16px;">
                             Apakah Anda yakin ingin menghapus data dengan ID:
-                            <span style="color:#1d4ed8;">{st.session_state.get("ids_to_delete", [])}</span>
+                            <span style="color:#1e3a8a;">{st.session_state.get("ids_to_delete", [])}</span>
                         </strong>
                     </div>
                     """,
