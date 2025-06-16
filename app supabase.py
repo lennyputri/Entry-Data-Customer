@@ -108,6 +108,14 @@ st.markdown("""
             color: #0A2647;
         }
 
+        /* Ubah background expander dialog konfirmasi hapus */
+        div[data-testid="stExpander"] {
+            background-color: #dbeafe !important; /* biru muda */
+            border: 2px solid #2563eb !important; /* biru border */
+            border-radius: 12px !important;
+            padding: 15px !important;
+            color: #1e3a8a !important;
+        }
     </style>
 """, unsafe_allow_html=True)
 
