@@ -201,10 +201,10 @@ if menu == "📂 Lihat Data":
             with st.expander("⚠️ Konfirmasi Hapus", expanded=True):
                 st.markdown(
                     f"""
-                    <div style="background-color:#dbeafe; padding:15px; border:2px solid #2563eb; border-radius:12px; margin-bottom:20px;">
+                    <div style="background-color:#fedddb; padding:10px; border:2px solid #bd0606; border-radius:12px; margin-bottom:20px;">
                         <strong style="color:#d90429; font-size:16px;">
                             Apakah Anda yakin ingin menghapus data dengan ID:
-                            <span style="color:#1e3a8a;">{st.session_state.get("ids_to_delete", [])}</span>
+                            <span style="color:#0a0101;">{st.session_state.get("ids_to_delete", [])}</span>
                         </strong>
                     </div>
                     """,
