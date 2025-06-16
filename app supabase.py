@@ -182,6 +182,7 @@ if menu == "📂 Lihat Data":
         st.markdown("---")
 
         # Proteksi admin: hanya tampil jika login berhasil
+        # ===== Pilih baris + klik tombol pertama ======
         if is_admin:
             st.markdown("### Hapus Baris")
         
@@ -190,25 +191,43 @@ if menu == "📂 Lihat Data":
                 options=filtered_df['ID'].tolist()
             )
             
-            if st.button("Hapus Data Terpilih"):
-                if ids_to_delete:
-                    with st.expander("⚠️ Konfirmasi Hapus", expanded=True):
-                        st.warning(f"Apakah Anda yakin ingin menghapus data dengan ID: {ids_to_delete}?")
-                        confirm = st.button("Ya, Hapus Sekarang", key="confirm_delete")
-                        cancel = st.button("Batal", key="cancel_delete")
-                    if confirm:
-                        delete_customer_data(ids_to_delete)
-                        data = fetch_customer_data()
-                        st.session_state.df_display = pd.DataFrame(data, columns=[
-                            "ID", "Business Segment", "Division", "Kode Debtor", "Debtor Name",
-                            "Sales Name", "ID POL", "ID POD", "Cabang Tagih", "Alamat Kirim Invoice",
+            if st.button("Hapus Data Terpilih", disabled=len(ids_to_delete) == 0):
+                # simpan pilihan & munculkan dialog konfirmasi
+                st.session_state.ids_to_delete = ids_to_delete
+                st.session_state.show_confirm = True
+                
+        # ===== Dialog Konfirmasi =======        
+        if st.session_state.get("show_confirm", False):
+            with st.expander("⚠️ Konfirmasi Hapus", expanded=True):
+                st.warning(
+                    f"Apakah Anda yakin ingin menghapus data dengan ID: "
+                    f"{st.session_state.ids_to_delete} ?"
+                )
+                col1, col2 = st.columns(2)
+                confirm   = col1.button("✅ Ya, Hapus Sekarang", key="confirm_delete")
+                delete = col2.button("❌ Batal",              key="cancel_delete")
+                        
+                if confirm:
+                    delete_customer_data(st.session_state.ids_to_delete)
+
+                    #Refresh Tabel
+                    data = fetch_customer_data()
+                    st.session_state.df_display = pd.DataFrame(
+                        data,
+                        columns=[
+                            "ID", "Business Segment", "Division", "Kode Debtor",
+                            "Debtor Name", "Sales Name", "ID POL", "ID POD",
+                            "Cabang Tagih", "Alamat Kirim Invoice",
                             "Invoice Type", "Dokumen Terkait"
-                        ])
-                        st.success(f"Berhasil menghapus baris dengan ID: {ids_to_delete}")
-                    elif cancel:
-                        st.info("Penghapusan dibatalkan.")
-                else:
-                    st.warning("Pilih minimal satu baris untuk dihapus.")
+                        ]
+                    )
+                    st.success(
+                        f"Berhasil menghapus baris dengan ID: {st.session_state.ids_to_delete}"
+                    )
+                    st.session_state.show_confirm = False
+                elif delete:
+                    st.info("Penghapusan dibatalkan.")
+                    st.session_state.show_confirm = False
         else:
             st.markdown("🔒 Fitur hapus data hanya untuk admin. Login di sidebar untuk akses.")
 
