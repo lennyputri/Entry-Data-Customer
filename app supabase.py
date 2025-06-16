@@ -151,26 +151,25 @@ if menu == "📄 Lihat Data":
         if is_admin:
             st.markdown("### Hapus Baris")
         
-        ids_to_delete = st.multiselect(
-            "Pilih baris yang ingin dihapus (berdasarkan ID):",
-            options=filtered_df['ID'].tolist()
-        )
-
-        if st.button("Hapus Data Terpilih"):
-            if ids_to_delete:
-                delete_customer_data(ids_to_delete) 
-                data = fetch_customer_data()
-                st.session_state.df_display = pd.DataFrame(data, columns=[
-                    "ID", "Business Segment", "Division", "Kode Debtor", "Debtor Name",
-                    "Sales Name", "ID POL", "ID POD", "Cabang Tagih", "Alamat Kirim Invoice",
-                    "Invoice Type", "Dokumen Terkait"
-                ])
-
-                st.success(f"Berhasil menghapus baris dengan ID: {ids_to_delete}")
+            ids_to_delete = st.multiselect(
+                "Pilih baris yang ingin dihapus (berdasarkan ID):",
+                options=filtered_df['ID'].tolist()
+            )
+            
+            if st.button("Hapus Data Terpilih"):
+                if ids_to_delete:
+                    delete_customer_data(ids_to_delete) 
+                    data = fetch_customer_data()
+                    st.session_state.df_display = pd.DataFrame(data, columns=[
+                        "ID", "Business Segment", "Division", "Kode Debtor", "Debtor Name",
+                        "Sales Name", "ID POL", "ID POD", "Cabang Tagih", "Alamat Kirim Invoice",
+                        "Invoice Type", "Dokumen Terkait"
+                    ])
+                    st.success(f"Berhasil menghapus baris dengan ID: {ids_to_delete}")
+                else:
+                    st.warning("Pilih minimal satu baris untuk dihapus.")
             else:
-                st.warning("Pilih minimal satu baris untuk dihapus.")
-        else:
-            st.markdown("🔒 Fitur hapus hanya untuk admin. Login di sidebar untuk akses.")
+                st.markdown("🔒 Fitur hapus hanya untuk admin. Login di sidebar untuk akses.")
 
 # ==== Entri Baru ====
 elif menu == "➕ Entri Data Baru":
