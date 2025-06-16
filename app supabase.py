@@ -204,9 +204,32 @@ if menu == "📂 Lihat Data":
                     f"{st.session_state.ids_to_delete} ?"
                 )
                 col1, col2 = st.columns(2)
-                confirm   = col1.button("✅ Ya, Hapus Sekarang", key="confirm_delete")
-                delete = col2.button("❌ Batal",              key="cancel_delete")
-                        
+
+                # Tombol konfirmasi & batal
+                if col1.button("✅ Ya, Hapus Sekarang", key="confirm_delete"):
+                    st.session_state.confirm_click = True
+                if col2.button("❌ Batal", key="cancel_delete"):
+                    st.session_state.confirm_click = False
+                    st.session_state.show_confirm = False
+                    st.info("Penghapusan dibatalkan.")
+                    st.experimental_rerun()
+                
+                # ---- Eksekusi hapus setelah tombol ditekan ----
+                if st.session_state.get("confirm_click", None):
+                    delete_customer_data(st.session_state.ids_to_delete)
+
+                    # refresh data dari Supabase
+                    data = fetch_customer_data()
+                    st.session_state.df_display = pd.DataFrame(
+                        data,
+                        columns=[
+                            "ID", "Business Segment", "Division", "Kode Debtor",
+                            "Debtor Name", "Sales Name", "ID POL", "ID POD",
+                            "Cabang Tagih", "Alamat Kirim Invoice",
+                            "Invoice Type", "Dokumen Terkait"
+                        ]
+                    )
+                
                 if confirm:
                     delete_customer_data(st.session_state.ids_to_delete)
 
@@ -221,10 +244,16 @@ if menu == "📂 Lihat Data":
                             "Invoice Type", "Dokumen Terkait"
                         ]
                     )
+                    
                     st.success(
                         f"Berhasil menghapus baris dengan ID: {st.session_state.ids_to_delete}"
                     )
+                    # bersihkan state dan reload tampilan
                     st.session_state.show_confirm = False
+                    st.session_state.confirm_click = None
+                    st.session_state.ids_to_delete = []
+                    st.experimental_rerun()
+                    
                 elif delete:
                     st.info("Penghapusan dibatalkan.")
                     st.session_state.show_confirm = False
