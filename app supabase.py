@@ -145,7 +145,7 @@ with st.sidebar.expander("🔐 Login Admin untuk Hapus Data"):
 
 # ==== Lihat Data ====
 if menu == "📂 Lihat Data":
-    st.subheader("📋 Data Customer Guidance Invoicing")
+    st.subheader("📋 Data Kebutuhan Dokumen Invoice Customer")
     data = fetch_customer_data()
     if data:
         df = pd.DataFrame(data, columns=[
@@ -257,7 +257,7 @@ if menu == "📂 Lihat Data":
 
 # ==== Entri Baru ====
 elif menu == "🖥️ Entri Data Baru":
-    st.subheader("📝 Tambah Data Customer Guidance Invoicing")
+    st.subheader("📝 Input Data Kebutuhan Dokumen Invoice Customer")
     
     #Ambil state untuk edit mode
     edit_mode = False
