@@ -320,7 +320,7 @@ elif menu == "🖥️ Entri Data Baru":
                 "Invoice Type".upper(), ["Select"] + ["Hardcopy", "Softcopy"],
                 index=["Select", "Hardcopy", "Softcopy"].index(edit_data.get("Invoice Type", "Select"))
             )
-            document_options = ["KWITANSI", "REKAPAN", "INV FP", "RESI", "BATSB", "SI", "BL"]
+            document_options = ["KWITANSI", "REKAPAN", "INV FP", "RESI", "BATSB", "SI", "BL", "SURAT JALAN"]
             dokumen_dipilih = st.multiselect(
                 "Supporting Documents".upper(), document_options,
                 default=[d.strip() for d in edit_data.get("Dokumen Terkait", "").split(",") if d.strip()
