@@ -1,4 +1,4 @@
- import streamlit as st
+import streamlit as st
 from dbsupabase import fetch_customer_data, insert_customer_data, delete_customer_data
 import pandas as pd
 
@@ -14,6 +14,11 @@ if "menu" not in st.session_state:
     st.session_state.menu = "📄 Lihat Data"
 
 # ==== CSS Styling ====
+def show_centered_alert(message, color="green"):
+    bg_color = "#d4edda" if color == "green" else "#f8d7da"
+    border_color = "#2e7d32" if color == "green" else "#b71c1c"
+    text_color = "#155724" if color == "green" else "#721c24"
+
 st.markdown("""
     <style>
         /* Tambahan untuk border merah password */
@@ -263,34 +268,6 @@ elif menu == "🖥️ Entri Data Baru":
     edit_mode = False
     edit_data = {}
 
-    # Dictionary referensi Debtor (untuk autofill)
-    debtor_lookup = {
-        "MATAHARI PUTRA PRIMA TBK, PT": {
-            "kode": "CST-0003041",
-            "sales": "hanna manalu",
-            "alamat": """DRY:  PT Matahari Putra Prima TBK  BALARAJA: JL. RAYA SERANG KM 26.5 TOBAT, BALARAJA TANGERANG, BANTEN 15610 TUKAR FAKTUR SETIAP SENIN RECC : CIBITUNG BPK OKTAF (MPP CHILLER)
-    KAWASAN INDUSTRI MM2100, JL. SELAYAR II NO.3
-    TELAJUNG, CIKARANG BARAT, BEKASI, JAWA BARAT 17530
-    TELP : +62 813-1123-5087"""
-        },
-        "INDOFOOD FORTUNA MAKMUR, PT": {
-            "kode": "CST-0013198",
-            "sales": "reyda ferdila",
-            "alamat": "DIKIRIM SAMA CABANG SEMARANG"
-        },
-        "TIRTAKENCANA TATAWARNA, PT": {
-            "kode": "CST-0023282",
-            "sales": "Kevin Tanoyo",
-            "alamat": "Jl. Raya Ahmad Yani No. 317 Dukuh Menanggal – Surabaya ATTN : IBU ANISSA / IBU RIA"
-        },
-        "INDOMARCO ADI PRIMA, PT": {
-            "kode": "CST-0010342",
-            "sales": "hanna manalu",
-            "alamat": """Jl. Jababeka Raya Blok A No. 6-15 Cikarang Utara – Bekasi - Up : Bp. Agusnadi / Bp. Sujartomo  - EMAIL : "agusnadi@indomarco.co.id" <agusnadi@indomarco.co.id> ; "angusnadi@gmail.com" <angusnadi@gmail.com>"""
-        }
-    }
-
-    
     with st.form("form_customer_invoice"):
         col1, col2 = st.columns(2)
         with col1:
@@ -305,27 +282,17 @@ elif menu == "🖥️ Entri Data Baru":
                 index=["Sea Freight", "Air Freight", "Custom", "Industrial Project", "Wh and Transport"].index(
                 edit_data.get("Division", "Sea Freight"))
             )
-            debtor_name = st.selectbox(
-                "Debtor Name *".upper(),
-                options=[""] + list(debtor_lookup.keys()),
-                index=0
-            )
-            if debtor_name in debtor_lookup:
-                kode_debtor_default = debtor_lookup[debtor_name]["kode"]
-                sales_name_default = debtor_lookup[debtor_name]["sales"]
-                alamat_kirim_default = debtor_lookup[debtor_name]["alamat"]
-            else:
-                kode_debtor_default = ""
-                sales_name_default = ""
-                alamat_kirim_default = ""
-            
             kode_debtor = st.text_input(
                 "Kode Debtor".upper(),
-                value=kode_debtor_default
+                value=edit_data.get("Kode Debtor", "")
+            )
+            debtor_name = st.text_input(
+                "Debtor Name".upper(),
+                value=edit_data.get("Debtor Name", "")
             )
             sales_name = st.text_input(
                 "Sales Name".upper(),
-                value=sales_name_default
+                value=edit_data.get("Debtor Name", "")
             )
             id_pol_pod_cabangtagih_options = ["IDAMP", "IDAMQ", "IDBDJ", "IDBIT", "IDBLW", "IDBPN", "IDENE", "IDGTO", "IDJKT", "IDKDI", "IDKID", "IDKOE",
                                               "IDKTG", "IDLBO", "IDMKS", "IDMOF", "IDOTH", "IDPAP", "IDPDG", "IDPKX", "IDPNK", "IDPTL", "IDPWG", "IDSMG", "IDSMQ",
@@ -347,13 +314,13 @@ elif menu == "🖥️ Entri Data Baru":
             )
             alamat_kirim_invoice = st.text_area(
                 "Alamat Kirim Invoice".upper(),
-                value=alamat_kirim_default, height=150
+                value=edit_data.get("Alamat Kirim Invoice", ""), height=150
             )
             invoice_type = st.selectbox(
                 "Invoice Type".upper(), ["Select"] + ["Hardcopy", "Softcopy"],
                 index=["Select", "Hardcopy", "Softcopy"].index(edit_data.get("Invoice Type", "Select"))
             )
-            document_options = ["KWITANSI", "REKAPAN", "INV FP", "RESI", "BATSB", "SI", "BL", "FAKTUR PAJAK", "SURAT JALAN"]
+            document_options = ["KWITANSI", "REKAPAN", "INV FP", "RESI", "BATSB", "SI", "BL"]
             dokumen_dipilih = st.multiselect(
                 "Supporting Documents".upper(), document_options,
                 default=[d.strip() for d in edit_data.get("Dokumen Terkait", "").split(",") if d.strip()
