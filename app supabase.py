@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components  # Tambahkan ini di bagian import
 from dbsupabase import fetch_customer_data, insert_customer_data, delete_customer_data
 import pandas as pd
 
@@ -19,8 +20,8 @@ def show_centered_alert(message, color="green"):
     border_color = "#2e7d32" if color == "green" else "#b71c1c"
     text_color = "#155724" if color == "green" else "#721c24"
 
-    st.markdown(f"""
-    <div style="
+    components.html(f"""
+    <div id="custom-alert" style="
         position: fixed;
         top: 50%;
         left: 50%;
@@ -34,10 +35,20 @@ def show_centered_alert(message, color="green"):
         z-index: 9999;
         text-align: center;
         font-weight: bold;
+        font-family: Arial, sans-serif;
     ">
         {message}
     </div>
-    """, unsafe_allow_html=True)
+
+    <script>
+        setTimeout(function() {{
+            var alertBox = document.getElementById("custom-alert");
+            if (alertBox) {{
+                alertBox.style.display = "none";
+            }}
+        }}, 3000);
+    </script>
+    """, height=100)
 
 # ==== Global Styling (UI Forms, Sidebar, etc) ====
 st.markdown("""
