@@ -13,10 +13,36 @@ st.set_page_config(page_title="Customer Guidance Invoicing", layout="wide")
 if "menu" not in st.session_state:
     st.session_state.menu = "📄 Lihat Data"
 
-# ==== CSS Styling ====
+# ==== CSS Styling & Centered Alert ====
+def show_centered_alert(message, color="green"):
+    bg_color = "#d4edda" if color == "green" else "#f8d7da"
+    border_color = "#2e7d32" if color == "green" else "#b71c1c"
+    text_color = "#155724" if color == "green" else "#721c24"
+
+    st.markdown(f"""
+    <div style="
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: {bg_color};
+        color: {text_color};
+        padding: 20px 30px;
+        border-radius: 12px;
+        border: 2px solid {border_color};
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        z-index: 9999;
+        text-align: center;
+        font-weight: bold;
+    ">
+        {message}
+    </div>
+    """, unsafe_allow_html=True)
+
+# ==== Global Styling (UI Forms, Sidebar, etc) ====
 st.markdown("""
     <style>
-        /* Tambahan untuk border merah password */
+        /* Password box & inputs */
         input:invalid {
             box-shadow: none !important;
             outline: none !important;
@@ -24,10 +50,10 @@ st.markdown("""
 
         div[data-baseweb="input"] input {
             border: none !important;
-            outline : none !important;
+            outline: none !important;
             padding: 8px;
             background-color: transparent;
-            color : black:
+            color: black;
         }
 
         div[data-baseweb="input"] {
@@ -36,8 +62,8 @@ st.markdown("""
             background-color: white;
             padding: 4px;
         }
-        
-        /* Input dan Textarea */
+
+        /* Input, Textarea, Select box styling */
         div[data-baseweb="input"] input,
         div[data-baseweb="textarea"] textarea,
         div[data-baseweb="select"] {
@@ -48,20 +74,20 @@ st.markdown("""
             padding: 8px;
         }
 
-        /* Label */
+        /* Label styling */
         label {
             font-weight: bold;
             color: white !important;
         }
 
-        /* Background form box */
+        /* Form background */
         div[data-testid="stForm"] {
             background-color: #0A2647;
             padding: 30px;
             border-radius: 15px;
         }
 
-        /* Tombol Submit */
+        /* Submit button styling */
         button[kind="primary"] {
             background-color: #d90429;
             color: white;
@@ -74,40 +100,35 @@ st.markdown("""
             color: white;
         }
 
-        /* Sidebar background */
+        /* Sidebar styling */
         section[data-testid="stSidebar"] {
             background-color: #0A2647;
             color: white;
         }
 
-        /* Sidebar radio button label */
         section[data-testid="stSidebar"] label {
             color: white !important;
             font-weight: bold;
         }
 
-        /* Warna teks radio button */
         section[data-testid="stSidebar"] .stRadio div {
             color: white !important;
         }
 
-        /* Warna ikon dan teks radio */
         section[data-testid="stSidebar"] svg, 
         section[data-testid="stSidebar"] span {
             color: white !important;
             fill: white !important;
         }
 
-        /* Jika radio terlihat seperti 'mati' */
         section[data-testid="stSidebar"] .css-1n76uvr {
             opacity: 1 !important;
         }
 
-        /* Judul utama */
+        /* Page title styling */
         h1 {
             color: #0A2647;
         }
-
     </style>
 """, unsafe_allow_html=True)
 
@@ -244,9 +265,7 @@ if menu == "📂 Lihat Data":
                         ]
                     )
                                  
-                    st.success(
-                        f"Berhasil menghapus baris dengan ID: {st.session_state.ids_to_delete}"
-                    )
+                    show_centered_alert(f"✅ Berhasil menghapus baris dengan ID: {st.session_state.ids_to_delete}", color="green")
                     # bersihkan state dan reload tampilan
                     st.session_state.show_confirm = False
                     st.session_state.confirm_click = None
@@ -341,14 +360,10 @@ elif menu == "🖥️ Entri Data Baru":
                 business_segment, division, kode_debtor.strip(), debtor_name.strip(), sales_name.strip(),
                 id_pol, id_pod, cabang_tagih.strip(), alamat_kirim_invoice.strip(), invoice_type, dokumen_terkait
             ]):
-                st.markdown("""
-                    <div style='background-color: white; padding: 15px; border-radius: 10px;'>
-                        <span style='color: red; font-weight: bold;'>❌ Terdapat data yang belum diisi. Harap lengkapi semua kolom wajib.</span>
-                    </div>
-                """, unsafe_allow_html=True)
+                show_centered_alert("❌ Terdapat data yang belum diisi. Harap lengkapi semua kolom wajib.", color="red")
             else:
                 insert_customer_data((
                         business_segment, division, kode_debtor.strip(), debtor_name.strip(), sales_name.strip(),
                         id_pol, id_pod, cabang_tagih.strip(), alamat_kirim_invoice.strip(), invoice_type, ", ".join(dokumen_terkait)
                 ))
-                st.markdown("<div style='background-color:white; color:green; padding:10px;'>✅ Data Customer Guidance Invoicing berhasil disimpan.</div>", unsafe_allow_html=True)
+                show_centered_alert("✅ Data Customer Guidance Invoicing berhasil disimpan.", color="green")
