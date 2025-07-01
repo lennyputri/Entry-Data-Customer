@@ -1,5 +1,4 @@
 import streamlit as st
-import streamlit.components.v1 as components  # Tambahkan ini di bagian import
 from dbsupabase import fetch_customer_data, insert_customer_data, delete_customer_data
 import pandas as pd
 
@@ -14,46 +13,10 @@ st.set_page_config(page_title="Customer Guidance Invoicing", layout="wide")
 if "menu" not in st.session_state:
     st.session_state.menu = "📄 Lihat Data"
 
-# ==== CSS Styling & Centered Alert ====
-def show_centered_alert(message, color="green"):
-    bg_color = "#d4edda" if color == "green" else "#f8d7da"
-    border_color = "#2e7d32" if color == "green" else "#b71c1c"
-    text_color = "#155724" if color == "green" else "#721c24"
-
-    components.html(f"""
-    <div id="custom-alert" style="
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: {bg_color};
-        color: {text_color};
-        padding: 20px 30px;
-        border-radius: 12px;
-        border: 2px solid {border_color};
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        z-index: 9999;
-        text-align: center;
-        font-weight: bold;
-        font-family: Arial, sans-serif;
-    ">
-        {message}
-    </div>
-
-    <script>
-        setTimeout(function() {{
-            var alertBox = document.getElementById("custom-alert");
-            if (alertBox) {{
-                alertBox.style.display = "none";
-            }}
-        }}, 3000);
-    </script>
-    """, height=100)
-
-# ==== Global Styling (UI Forms, Sidebar, etc) ====
+# ==== CSS Styling ====
 st.markdown("""
     <style>
-        /* Password box & inputs */
+        /* Tambahan untuk border merah password */
         input:invalid {
             box-shadow: none !important;
             outline: none !important;
@@ -61,10 +24,10 @@ st.markdown("""
 
         div[data-baseweb="input"] input {
             border: none !important;
-            outline: none !important;
+            outline : none !important;
             padding: 8px;
             background-color: transparent;
-            color: black;
+            color : black:
         }
 
         div[data-baseweb="input"] {
@@ -73,8 +36,8 @@ st.markdown("""
             background-color: white;
             padding: 4px;
         }
-
-        /* Input, Textarea, Select box styling */
+        
+        /* Input dan Textarea */
         div[data-baseweb="input"] input,
         div[data-baseweb="textarea"] textarea,
         div[data-baseweb="select"] {
@@ -85,20 +48,20 @@ st.markdown("""
             padding: 8px;
         }
 
-        /* Label styling */
+        /* Label */
         label {
             font-weight: bold;
             color: white !important;
         }
 
-        /* Form background */
+        /* Background form box */
         div[data-testid="stForm"] {
             background-color: #0A2647;
             padding: 30px;
             border-radius: 15px;
         }
 
-        /* Submit button styling */
+        /* Tombol Submit */
         button[kind="primary"] {
             background-color: #d90429;
             color: white;
@@ -111,35 +74,40 @@ st.markdown("""
             color: white;
         }
 
-        /* Sidebar styling */
+        /* Sidebar background */
         section[data-testid="stSidebar"] {
             background-color: #0A2647;
             color: white;
         }
 
+        /* Sidebar radio button label */
         section[data-testid="stSidebar"] label {
             color: white !important;
             font-weight: bold;
         }
 
+        /* Warna teks radio button */
         section[data-testid="stSidebar"] .stRadio div {
             color: white !important;
         }
 
+        /* Warna ikon dan teks radio */
         section[data-testid="stSidebar"] svg, 
         section[data-testid="stSidebar"] span {
             color: white !important;
             fill: white !important;
         }
 
+        /* Jika radio terlihat seperti 'mati' */
         section[data-testid="stSidebar"] .css-1n76uvr {
             opacity: 1 !important;
         }
 
-        /* Page title styling */
+        /* Judul utama */
         h1 {
             color: #0A2647;
         }
+
     </style>
 """, unsafe_allow_html=True)
 
@@ -276,7 +244,9 @@ if menu == "📂 Lihat Data":
                         ]
                     )
                                  
-                    show_centered_alert(f"✅ Berhasil menghapus baris dengan ID: {st.session_state.ids_to_delete}", color="green")
+                    st.success(
+                        f"Berhasil menghapus baris dengan ID: {st.session_state.ids_to_delete}"
+                    )
                     # bersihkan state dan reload tampilan
                     st.session_state.show_confirm = False
                     st.session_state.confirm_click = None
@@ -371,10 +341,14 @@ elif menu == "🖥️ Entri Data Baru":
                 business_segment, division, kode_debtor.strip(), debtor_name.strip(), sales_name.strip(),
                 id_pol, id_pod, cabang_tagih.strip(), alamat_kirim_invoice.strip(), invoice_type, dokumen_terkait
             ]):
-                show_centered_alert("❌ Terdapat data yang belum diisi. Harap lengkapi semua kolom wajib.", color="red")
+                st.markdown("""
+                    <div style='background-color: white; padding: 15px; border-radius: 10px;'>
+                        <span style='color: red; font-weight: bold;'>❌ Terdapat data yang belum diisi. Harap lengkapi semua kolom wajib.</span>
+                    </div>
+                """, unsafe_allow_html=True)
             else:
                 insert_customer_data((
                         business_segment, division, kode_debtor.strip(), debtor_name.strip(), sales_name.strip(),
                         id_pol, id_pod, cabang_tagih.strip(), alamat_kirim_invoice.strip(), invoice_type, ", ".join(dokumen_terkait)
                 ))
-                show_centered_alert("✅ Data Customer Guidance Invoicing berhasil disimpan.", color="green")
+                st.markdown("<div style='background-color:white; color:green; padding:10px;'>✅ Data Customer Guidance Invoicing berhasil disimpan.</div>", unsafe_allow_html=True)
