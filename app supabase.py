@@ -46,8 +46,8 @@ st.markdown("""
         div[data-baseweb="input"] input,
         div[data-baseweb="textarea"] textarea,
         div[data-baseweb="select"] {
-            background-color: #0A2647;
-            color: white;
+            background-color: #ffffff;
+            color: black;
             border: 2px solid #d90429;
             border-radius: 8px;
             padding: 8px;
