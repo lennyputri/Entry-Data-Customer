@@ -302,10 +302,13 @@ elif menu == "🖥️ Entri Data Baru":
     if "selected_debtor" not in st.session_state:
         st.session_state.selected_debtor = "Pilih Debtor"
 
+    with col1:
+    st.markdown("<label style='color:white; font-weight:bold;'>DEBTOR NAME</label>", unsafe_allow_html=True)
     selected_debtor = st.selectbox(
-        "Debtor Name".upper(),
+        "",
         options=debtor_names_list,
-        index=debtor_names_list.index(st.session_state.selected_debtor)
+        index=debtor_names_list.index(st.session_state.selected_debtor),
+        key="selectbox_debtor"
     )
 
     if selected_debtor != st.session_state.selected_debtor:
