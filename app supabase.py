@@ -111,7 +111,7 @@ st.markdown("""
         /* Judul utama */
         h1 {
             color: #0A2647;
-            margin-bottom: 10px !important;  
+            margin-bottom: 3px !important;  
         }
 
     </style>
