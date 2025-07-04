@@ -299,7 +299,7 @@ elif menu == "🖥️ Entri Data Baru":
         st.session_state.selected_debtor = "Pilih Debtor"
 
     # Kosongkan label selectbox biar gak dobel
-    selected_debtor = st.selectbox("",
+    selected_debtor = st.selectbox("Debtor Name".upper(),
         options=debtor_names_list,
         index=debtor_names_list.index(st.session_state.selected_debtor),
     )
