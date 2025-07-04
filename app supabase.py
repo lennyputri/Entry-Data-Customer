@@ -330,7 +330,7 @@ elif menu == "🖥️ Entri Data Baru":
         with col2:
             st.text_input("Kode Debtor".upper(), value=kode_debtor, disabled=True)
             st.text_input("Sales Name".upper(), value=sales_name, disabled=True)
-            st.text_area("Alamat Kirim Invoice".upper(), value=alamat_kirim_invoice, height=130, disabled=True)
+            st.text_area("Alamat Kirim Invoice".upper(), value=alamat_kirim_invoice, height=110, disabled=True)
             invoice_type = st.selectbox("Invoice Type".upper(), ["Select"] + ["Hardcopy", "Softcopy"])
             dokumen_dipilih = st.multiselect("Supporting Documents".upper(), ["KWITANSI", "REKAPAN", "INV FP", "RESI", "BATSB", "SI", "BL", "SURAT JALAN", "SJ PABRIK"])
             dokumen_tambahan = st.text_input("Tambah Dokumen Lain (pisahkan dengan koma)".upper())
