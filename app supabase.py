@@ -262,8 +262,7 @@ if menu == "📂 Lihat Data":
 
 # ==== Entri Baru ====
 elif menu == "🖥️ Entri Data Baru":
-    st.subheader("📝 Input Data Kebutuhan Dokumen Invoice Customer")
-    
+   
     #Ambil state untuk edit mode
     edit_mode = False
     edit_data = {}
