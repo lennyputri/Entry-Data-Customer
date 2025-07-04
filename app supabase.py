@@ -268,65 +268,80 @@ elif menu == "🖥️ Entri Data Baru":
     edit_mode = False
     edit_data = {}
 
+    # === Mapping 4 perusahaan untuk isi otomatis ===
+    data_customer_mapping = {
+        "MATAHARI PUTRA PRIMA TBK, PT": {
+            "Kode Debtor": "CST-0003041",
+            "Sales Name": "hanna manalu",
+            "Alamat Kirim Invoice": '''JL. RAYA SERANG KM 26.5 TOBAT, BALARAJA TANGERANG, BANTEN, 15610, TUKAR FAKTUR SETIAP SENIN RECC : CIBITUNG BPK OKTAF (MPP CHILLER)
+            KAWASAN INDUSTRI MM2100, JL. SELAYAR II NO.3
+            TELAJUNG, CIKARANG BARAT, BEKASI, JAWA BARAT 17530
+            TELP : +62 813-1123-5087'''
+        },
+        "INDOFOOD FORTUNA MAKMUR, PT": {
+            "Kode Debtor": "CST-0013198",
+            "Sales Name": "reyda ferdila",
+            "Alamat Kirim Invoice": "DIKIRIM SAMA CABANG SEMARANG"
+        },
+        "TIRTAKENCANA TATAWARNA, PT": {
+            "Kode Debtor": "CST-0023282",
+            "Sales Name": "Kevin Tanoyo",
+            "Alamat Kirim Invoice": "Jl. Raya Ahmad Yani No. 317 Dukuh Menanggal – Surabaya ATTN : IBU ANISSA / IBU RIA"
+        },
+        "INDOMARCO ADI PRIMA, PT": {
+            "Kode Debtor": "CST-0010342",
+            "Sales Name": "hanna manalu",
+            "Alamat Kirim Invoice": '''Jl. Jababeka Raya Blok A No. 6-15 Cikarang Utara – Bekasi - Up : Bp. Agusnadi / Bp. Sujartomo  
+            EMAIL : "agusnadi@indomarco.co.id"'''
+        }
+    }
+    
     with st.form("form_customer_invoice"):
         col1, col2 = st.columns(2)
         with col1:
             business_segment = st.selectbox(
                 "Business Segment".upper(), 
-                ["Domestic", "International"],
-                index=["Domestic", "International"].index(edit_data["Business Segment"]) if edit_mode else 0
+                ["Domestic", "International"]
             )
             division = st.selectbox(
                 "Division".upper(),
-                ["Sea Freight", "Air Freight", "Custom", "Industrial Project", "Wh and Transport"],
-                index=["Sea Freight", "Air Freight", "Custom", "Industrial Project", "Wh and Transport"].index(
-                edit_data.get("Division", "Sea Freight"))
-            )
-            kode_debtor = st.text_input(
-                "Kode Debtor".upper(),
-                value=edit_data.get("Kode Debtor", "")
-            )
-            debtor_name = st.text_input(
+                ["Sea Freight", "Air Freight", "Custom", "Industrial Project", "Wh and Transport"]
+            )          
+            debtor_names_list = ["Pilih Debtor"] + list(data_customer_mapping.keys())
+            debtor_name = st.selectbox(
                 "Debtor Name".upper(),
-                value=edit_data.get("Debtor Name", "")
-            )
-            sales_name = st.text_input(
-                "Sales Name".upper(),
-                value=edit_data.get("Debtor Name", "")
+                options=debtor_names_list,
             )
             id_pol_pod_cabangtagih_options = ["IDAMP", "IDAMQ", "IDBDJ", "IDBIT", "IDBLW", "IDBPN", "IDENE", "IDGTO", "IDJKT", "IDKDI", "IDKID", "IDKOE",
                                               "IDKTG", "IDLBO", "IDMKS", "IDMOF", "IDOTH", "IDPAP", "IDPDG", "IDPKX", "IDPNK", "IDPTL", "IDPWG", "IDSMG", "IDSMQ",
                                               "IDSRI", "IDSUB", "IDTKG", "IDTLI", "IDTRK", "IDTTE", "IDWIN"]
             id_pol = st.selectbox(
                 "ID POL".upper(), ["Select"] + id_pol_pod_cabangtagih_options,
-                index=(["Select"] + id_pol_pod_cabangtagih_options).index(edit_data.get("ID POL", "Select"))
             )
             id_pod = st.selectbox(
                 "ID POD".upper(), ["Select"] + id_pol_pod_cabangtagih_options,
-                index=(["Select"] + id_pol_pod_cabangtagih_options).index(edit_data.get("ID POD", "Select"))
             )
-
+     
         with col2:
-            cabang_tagih = st.selectbox(
-                "Cabang Tagih".upper(), ["Select"] + id_pol_pod_cabangtagih_options,
-                index=(["Select"] + id_pol_pod_cabangtagih_options).index(
-                    edit_data.get("Cabang Tagih", "Select"))
-            )
-            alamat_kirim_invoice = st.text_area(
-                "Alamat Kirim Invoice".upper(),
-                value=edit_data.get("Alamat Kirim Invoice", ""), height=150
-            )
-            invoice_type = st.selectbox(
-                "Invoice Type".upper(), ["Select"] + ["Hardcopy", "Softcopy"],
-                index=["Select", "Hardcopy", "Softcopy"].index(edit_data.get("Invoice Type", "Select"))
-            )
+            if debtor_name in data_customer_mapping:
+                kode_debtor = data_customer_mapping[debtor_name]["Kode Debtor"]
+                sales_name = data_customer_mapping[debtor_name]["Sales Name"]
+                alamat_kirim_invoice = data_customer_mapping[debtor_name]["Alamat Kirim Invoice"]
+                
+                # Tampilkan sebagai teks statis (read-only)
+                st.text_input("Kode Debtor".upper(), value=kode_debtor, disabled=True)
+                st.text_input("Kode Debtor".upper(), value=kode_debtor, disabled=True)
+                st.text_input("Sales Name".upper(), value=sales_name, disabled=True)
+                st.text_area("Alamat Kirim Invoice".upper(), value=alamat_kirim_invoice, height=150, disabled=True)
+            else:
+                kode_debtor = st.text_input("Kode Debtor".upper(),value="")
+                sales_name = st.text_input("Sales Name".upper(),value="")
+                alamat_kirim_invoice = st.text_area("Alamat Kirim Invoice".upper(), value="", height=150)
+                
+            cabang_tagih = st.selectbox("Cabang Tagih".upper(), ["Select"] + id_pol_pod_cabangtagih_options)
+            invoice_type = st.selectbox("Invoice Type".upper(), ["Select"] + ["Hardcopy", "Softcopy"])
             document_options = ["KWITANSI", "REKAPAN", "INV FP", "RESI", "BATSB", "SI", "BL", "SURAT JALAN", "SJ PABRIK"]
-            dokumen_dipilih = st.multiselect(
-                "Supporting Documents".upper(), document_options,
-                default=[d.strip() for d in edit_data.get("Dokumen Terkait", "").split(",") if d.strip()
-                         if d.strip() in document_options]
-            )
-            
+            dokumen_dipilih = st.multiselect("Supporting Documents".upper(), document_options)
             dokumen_tambahan = st.text_input("Tambah Dokumen Lain (pisahkan dengan koma jika lebih dari satu)".upper())
             st.caption("Kosongkan jika tidak ada dokumen tambahan.")
 
