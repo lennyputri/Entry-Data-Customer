@@ -116,6 +116,15 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# Zoom tampilan jadi 64%
+st.markdown("""
+    <style>
+        body {
+            zoom: 0.64;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # ==== Header & Sidebar ====
 st.markdown(
     '<img src="https://www.freight-hub.co/wp-content/uploads/2023/11/Logo-MGLog.png.webp" width="240"/>',
