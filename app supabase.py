@@ -329,15 +329,15 @@ elif menu == "🖥️ Entri Data Baru":
                                               "IDSRI", "IDSUB", "IDTKG", "IDTLI", "IDTRK", "IDTTE", "IDWIN"]
             id_pol = st.selectbox("ID POL".upper(), ["Select"] + id_pol_pod_cabangtagih_options)
             id_pod = st.selectbox("ID POD".upper(), ["Select"] + id_pol_pod_cabangtagih_options)
+            cabang_tagih = st.selectbox("Cabang Tagih".upper(),["Select"] +  id_pol_pod_cabangtagih_options)
         with col2:
             st.text_input("Kode Debtor".upper(), value=kode_debtor, disabled=True)
             st.text_input("Sales Name".upper(), value=sales_name, disabled=True)
             st.text_area("Alamat Kirim Invoice".upper(), value=alamat_kirim_invoice, height=150, disabled=True)
-            cabang_tagih = st.selectbox("Cabang Tagih".upper(),["Select"] +  id_pol_pod_cabangtagih_options)
             invoice_type = st.selectbox("Invoice Type".upper(), ["Select"] + ["Hardcopy", "Softcopy"])
             dokumen_dipilih = st.multiselect("Supporting Documents".upper(), ["KWITANSI", "REKAPAN", "INV FP", "RESI", "BATSB", "SI", "BL", "SURAT JALAN", "SJ PABRIK"])
-            dokumen_tambahan = st.text_input("Tambah Dokumen Lain (pisahkan dengan koma)")
-            st.caption("Kosongkan jika tidak ada dokumen tambahan.")
+            dokumen_tambahan = st.text_input("Tambah Dokumen Lain (pisahkan dengan koma)".upper(),
+            st.caption("Kosongkan jika tidak ada dokumen tambahan."))
 
             # Gabung semua dokumen jadi satu list
             if dokumen_tambahan:
