@@ -111,7 +111,6 @@ st.markdown("""
         /* Judul utama */
         h1 {
             color: #0A2647;
-            margin-bottom: 3px !important;  
         }
 
     </style>
@@ -299,15 +298,11 @@ elif menu == "🖥️ Entri Data Baru":
     if "selected_debtor" not in st.session_state:
         st.session_state.selected_debtor = "Pilih Debtor"
 
-    # Tambahkan label manual di atas selectbox
-    st.markdown("<label style='color:black; font-weight:bold;'>DEBTOR NAME</label>", unsafe_allow_html=True)
-
     # Kosongkan label selectbox biar gak dobel
     selected_debtor = st.selectbox(
-        "",
+        "Debtor Name".upper(),
         options=debtor_names_list,
         index=debtor_names_list.index(st.session_state.selected_debtor),
-        key="selectbox_debtor_name"
     )
 
     if selected_debtor != st.session_state.selected_debtor:
