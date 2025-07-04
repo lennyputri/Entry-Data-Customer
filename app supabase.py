@@ -324,18 +324,16 @@ elif menu == "🖥️ Entri Data Baru":
      
         with col2:
             if debtor_name in data_customer_mapping:
-                kode_debtor = data_customer_mapping[debtor_name]["Kode Debtor"]
-                sales_name = data_customer_mapping[debtor_name]["Sales Name"]
-                alamat_kirim_invoice = data_customer_mapping[debtor_name]["Alamat Kirim Invoice"]
+                kode_debtor_default = data_customer_mapping[debtor_name]["Kode Debtor"]
+                sales_name_default = data_customer_mapping[debtor_name]["Sales Name"]
+                alamat_default = data_customer_mapping[debtor_name]["Alamat Kirim Invoice"]
                 
-                # Tampilkan sebagai teks statis (read-only)
-                st.text_input("Kode Debtor".upper(), value=kode_debtor, disabled=True)
-                st.text_input("Kode Debtor".upper(), value=kode_debtor, disabled=True)
-                st.text_input("Sales Name".upper(), value=sales_name, disabled=True)
-                st.text_area("Alamat Kirim Invoice".upper(), value=alamat_kirim_invoice, height=150, disabled=True)
+                kode_debtor = st.text_input("Kode Debtor".upper(), value=kode_debtor_default, disabled=True)
+                sales_name = st.text_input("Sales Name".upper(), value=sales_name_default, disabled=True)
+                alamat_kirim_invoice = st.text_area("Alamat Kirim Invoice".upper(), value=alamat_default, height=150, disabled=True)
             else:
-                kode_debtor = st.text_input("Kode Debtor".upper(),value="")
-                sales_name = st.text_input("Sales Name".upper(),value="")
+                kode_debtor = st.text_input("Kode Debtor".upper(), value="")
+                sales_name = st.text_input("Sales Name".upper(), value="")
                 alamat_kirim_invoice = st.text_area("Alamat Kirim Invoice".upper(), value="", height=150)
                 
             cabang_tagih = st.selectbox("Cabang Tagih".upper(), ["Select"] + id_pol_pod_cabangtagih_options)
