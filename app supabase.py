@@ -304,7 +304,7 @@ elif menu == "🖥️ Entri Data Baru":
             debtor_names_list = ["Pilih Debtor"] + list(data_customer_mapping.keys())
             if "selected_debtor" not in st.session_state:
                 st.session_state.selected_debtor = "Pilih Debtor"
-            new_name = st.selectbox("Debtor Name".upper(), options=debtor_names_list, index=debtor_names_list.index(st.session_state.selected_debtor))
+            new_debtor = st.selectbox("Debtor Name".upper(), options=debtor_names_list, index=debtor_names_list.index(st.session_state.selected_debtor))
 
             if new_debtor != st.session_state.selected_debtor:
                 st.session_state.selected_debtor = new_debtor
