@@ -272,7 +272,7 @@ elif menu == "🖥️ Entri Data Baru":
     data_customer_mapping = {
         "MATAHARI PUTRA PRIMA TBK, PT": {
             "Kode Debtor": "CST-0003041",
-            "Sales Name": "hanna manalu",
+            "Sales Name": "Hanna Manalu",
             "Alamat Kirim Invoice": '''JL. RAYA SERANG KM 26.5 TOBAT, BALARAJA TANGERANG, BANTEN, 15610, TUKAR FAKTUR SETIAP SENIN RECC : CIBITUNG BPK OKTAF (MPP CHILLER)
             KAWASAN INDUSTRI MM2100, JL. SELAYAR II NO.3
             TELAJUNG, CIKARANG BARAT, BEKASI, JAWA BARAT 17530
@@ -280,7 +280,7 @@ elif menu == "🖥️ Entri Data Baru":
         },
         "INDOFOOD FORTUNA MAKMUR, PT": {
             "Kode Debtor": "CST-0013198",
-            "Sales Name": "reyda ferdila",
+            "Sales Name": "Reyda Ferdila",
             "Alamat Kirim Invoice": "DIKIRIM SAMA CABANG SEMARANG"
         },
         "TIRTAKENCANA TATAWARNA, PT": {
@@ -290,7 +290,7 @@ elif menu == "🖥️ Entri Data Baru":
         },
         "INDOMARCO ADI PRIMA, PT": {
             "Kode Debtor": "CST-0010342",
-            "Sales Name": "hanna manalu",
+            "Sales Name": "Hanna Manalu",
             "Alamat Kirim Invoice": '''Jl. Jababeka Raya Blok A No. 6-15 Cikarang Utara – Bekasi - Up : Bp. Agusnadi / Bp. Sujartomo  
             EMAIL : "agusnadi@indomarco.co.id"'''
         }
@@ -311,7 +311,15 @@ elif menu == "🖥️ Entri Data Baru":
             debtor_name = st.selectbox(
                 "Debtor Name".upper(),
                 options=debtor_names_list,
+                key="selected_debtor"
             )
+            # Trigger rerun saat user memilih Debtor
+            if "last_debtor" not in st.session_state:
+                st.session_state.last_debtor = None
+            if debtor_name != st.session_state.last_debtor:
+                st.session_state.last_debtor = debtor_name
+                st.rerun()
+            
             id_pol_pod_cabangtagih_options = ["IDAMP", "IDAMQ", "IDBDJ", "IDBIT", "IDBLW", "IDBPN", "IDENE", "IDGTO", "IDJKT", "IDKDI", "IDKID", "IDKOE",
                                               "IDKTG", "IDLBO", "IDMKS", "IDMOF", "IDOTH", "IDPAP", "IDPDG", "IDPKX", "IDPNK", "IDPTL", "IDPWG", "IDSMG", "IDSMQ",
                                               "IDSRI", "IDSUB", "IDTKG", "IDTLI", "IDTRK", "IDTTE", "IDWIN"]
