@@ -295,48 +295,48 @@ elif menu == "🖥️ Entri Data Baru":
             EMAIL : "agusnadi@indomarco.co.id"'''
         }
     }
-    
+
+    # ========= HANDLE PEMILIHAN DEBTOR =========
+    debtor_names_list = ["Pilih Debtor"] + list(data_customer_mapping.keys())
+
+    if "selected_debtor" not in st.session_state:
+        st.session_state.selected_debtor = "Pilih Debtor"
+
+    selected_debtor = st.selectbox(
+        "Debtor Name".upper(),
+        options=debtor_names_list,
+        index=debtor_names_list.index(st.session_state.selected_debtor)
+    )
+
+    if selected_debtor != st.session_state.selected_debtor:
+        st.session_state.selected_debtor = selected_debtor
+        st.rerun()
+
+    # Ambil data sesuai debtor
+    debtor_data = data_customer_mapping.get(st.session_state.selected_debtor, {})
+    kode_debtor = debtor_data.get("Kode Debtor", "")
+    sales_name = debtor_data.get("Sales Name", "")
+    alamat_kirim_invoice = debtor_data.get("Alamat Kirim Invoice", "")
+
+    # ========= FORM =========
     with st.form("form_customer_invoice"):
         col1, col2 = st.columns(2)
         with col1:
             business_segment = st.selectbox("Business Segment".upper(), ["Domestic", "International"])
-            division = st.selectbox("Division".upper(),["Sea Freight", "Air Freight", "Custom", "Industrial Project", "Wh and Transport"])          
-            debtor_names_list = ["Pilih Debtor"] + list(data_customer_mapping.keys())
-            if "selected_debtor" not in st.session_state:
-                st.session_state.selected_debtor = "Pilih Debtor"
-            new_debtor = st.selectbox("Debtor Name".upper(), options=debtor_names_list, index=debtor_names_list.index(st.session_state.selected_debtor))
-
-            if new_debtor != st.session_state.selected_debtor:
-                st.session_state.selected_debtor = new_debtor
-                st.rerun()
-                
-            debtor_name = st.session_state.selected_debtor
-            
+            division = st.selectbox("Division".upper(),["Sea Freight", "Air Freight", "Custom", "Industrial Project", "Wh and Transport"])                    
             id_pol_pod_cabangtagih_options = ["IDAMP", "IDAMQ", "IDBDJ", "IDBIT", "IDBLW", "IDBPN", "IDENE", "IDGTO", "IDJKT", "IDKDI", "IDKID", "IDKOE",
                                               "IDKTG", "IDLBO", "IDMKS", "IDMOF", "IDOTH", "IDPAP", "IDPDG", "IDPKX", "IDPNK", "IDPTL", "IDPWG", "IDSMG", "IDSMQ",
                                               "IDSRI", "IDSUB", "IDTKG", "IDTLI", "IDTRK", "IDTTE", "IDWIN"]
             id_pol = st.selectbox("ID POL".upper(), ["Select"] + id_pol_pod_cabangtagih_options)
             id_pod = st.selectbox("ID POD".upper(), ["Select"] + id_pol_pod_cabangtagih_options)
-     
         with col2:
-            if debtor_name in data_customer_mapping:
-                kode_debtor_default = data_customer_mapping[debtor_name]["Kode Debtor"]
-                sales_name_default = data_customer_mapping[debtor_name]["Sales Name"]
-                alamat_default = data_customer_mapping[debtor_name]["Alamat Kirim Invoice"]
-                
-                kode_debtor = st.text_input("Kode Debtor".upper(), value=kode_debtor_default, disabled=True)
-                sales_name = st.text_input("Sales Name".upper(), value=sales_name_default, disabled=True)
-                alamat_kirim_invoice = st.text_area("Alamat Kirim Invoice".upper(), value=alamat_default, height=150, disabled=True)
-            else:
-                kode_debtor = st.text_input("Kode Debtor".upper(), value="")
-                sales_name = st.text_input("Sales Name".upper(), value="", disabled=True)
-                alamat_kirim_invoice = st.text_area("Alamat Kirim Invoice".upper(), value="", height=150)
-                
-            cabang_tagih = st.selectbox("Cabang Tagih".upper(), ["Select"] + id_pol_pod_cabangtagih_options)
-            invoice_type = st.selectbox("Invoice Type".upper(), ["Select"] + ["Hardcopy", "Softcopy"])
-            document_options = ["KWITANSI", "REKAPAN", "INV FP", "RESI", "BATSB", "SI", "BL", "SURAT JALAN", "SJ PABRIK"]
-            dokumen_dipilih = st.multiselect("Supporting Documents".upper(), document_options)
-            dokumen_tambahan = st.text_input("Tambah Dokumen Lain (pisahkan dengan koma jika lebih dari satu)".upper())
+            st.text_input("Kode Debtor".upper(), value=kode_debtor, disabled=True)
+            st.text_input("Sales Name".upper(), value=sales_name, disabled=True)
+            st.text_area("Alamat Kirim Invoice".upper(), value=alamat_kirim_invoice, height=150, disabled=True)
+            cabang_tagih = st.selectbox("Cabang Tagih".upper(), id_pol_pod_cabangtagih_options)
+            invoice_type = st.selectbox("Invoice Type".upper(), ["Select", "Hardcopy", "Softcopy"])
+            dokumen_dipilih = st.multiselect("Supporting Documents".upper(), ["KWITANSI", "REKAPAN", "INV FP", "RESI", "BATSB", "SI", "BL", "SURAT JALAN", "SJ PABRIK"])
+            dokumen_tambahan = st.text_input("Tambah Dokumen Lain (pisahkan dengan koma)")
             st.caption("Kosongkan jika tidak ada dokumen tambahan.")
 
             # Gabung semua dokumen jadi satu list
