@@ -273,10 +273,7 @@ elif menu == "🖥️ Entri Data Baru":
         "MATAHARI PUTRA PRIMA TBK, PT": {
             "Kode Debtor": "CST-0003041",
             "Sales Name": "Hanna Manalu",
-            "Alamat Kirim Invoice": '''JL. RAYA SERANG KM 26.5 TOBAT, BALARAJA TANGERANG, BANTEN, 15610, TUKAR FAKTUR SETIAP SENIN RECC : CIBITUNG BPK OKTAF (MPP CHILLER)
-            KAWASAN INDUSTRI MM2100, JL. SELAYAR II NO.3
-            TELAJUNG, CIKARANG BARAT, BEKASI, JAWA BARAT 17530
-            TELP : +62 813-1123-5087'''
+            "Alamat Kirim Invoice": '''JL. RAYA SERANG KM 26.5 TOBAT, BALARAJA TANGERANG, BANTEN, 15610, TUKAR FAKTUR SETIAP SENIN RECC : CIBITUNG BPK OKTAF (MPP CHILLER) KAWASAN INDUSTRI MM2100, JL. SELAYAR II NO.3 TELAJUNG, CIKARANG BARAT, BEKASI, JAWA BARAT 17530 TELP : +62 813-1123-5087'''
         },
         "INDOFOOD FORTUNA MAKMUR, PT": {
             "Kode Debtor": "CST-0013198",
@@ -333,7 +330,7 @@ elif menu == "🖥️ Entri Data Baru":
         with col2:
             st.text_input("Kode Debtor".upper(), value=kode_debtor, disabled=True)
             st.text_input("Sales Name".upper(), value=sales_name, disabled=True)
-            st.text_area("Alamat Kirim Invoice".upper(), value=alamat_kirim_invoice, height=150, disabled=True)
+            st.text_area("Alamat Kirim Invoice".upper(), value=alamat_kirim_invoice, height=130, disabled=True)
             invoice_type = st.selectbox("Invoice Type".upper(), ["Select"] + ["Hardcopy", "Softcopy"])
             dokumen_dipilih = st.multiselect("Supporting Documents".upper(), ["KWITANSI", "REKAPAN", "INV FP", "RESI", "BATSB", "SI", "BL", "SURAT JALAN", "SJ PABRIK"])
             dokumen_tambahan = st.text_input("Tambah Dokumen Lain (pisahkan dengan koma)".upper())
