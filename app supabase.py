@@ -46,8 +46,8 @@ st.markdown("""
         div[data-baseweb="input"] input,
         div[data-baseweb="textarea"] textarea,
         div[data-baseweb="select"] {
-            background-color: #ffffff;
-            color: black;
+            background-color: #0A2647;
+            color: white;
             border: 2px solid #d90429;
             border-radius: 8px;
             padding: 8px;
@@ -298,10 +298,14 @@ elif menu == "🖥️ Entri Data Baru":
     if "selected_debtor" not in st.session_state:
         st.session_state.selected_debtor = "Pilih Debtor"
 
+    # Label manual di atas selectbox
+    st.markdown("<label style='color:white; font-weight:bold;'>DEBTOR NAME</label>", unsafe_allow_html=True)
+    # Kosongkan label selectbox biar gak dobel
     selected_debtor = st.selectbox(
-        "Debtor Name".upper(),
+        "",
         options=debtor_names_list,
-        index=debtor_names_list.index(st.session_state.selected_debtor)
+        index=debtor_names_list.index(st.session_state.selected_debtor),
+        key="selectbox_debtor_name"
     )
 
     if selected_debtor != st.session_state.selected_debtor:
