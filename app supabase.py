@@ -120,7 +120,7 @@ st.markdown("""
 st.markdown("""
     <style>
         body {
-            zoom: 0.100;
+            zoom: 1;
         }
     </style>
 """, unsafe_allow_html=True)
