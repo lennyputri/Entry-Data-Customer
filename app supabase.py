@@ -299,7 +299,7 @@ elif menu == "🖥️ Entri Data Baru":
         st.session_state.selected_debtor = "Pilih Debtor"
 
     # Label manual di atas selectbox
-    st.markdown("<label style='color:#d90429; font-weight:bold;'>DEBTOR NAME</label>", unsafe_allow_html=True)
+    st.markdown("<label style='color:black; font-weight:bold;'>DEBTOR NAME</label>", unsafe_allow_html=True)
     # Kosongkan label selectbox biar gak dobel
     selected_debtor = st.selectbox(
         "",
