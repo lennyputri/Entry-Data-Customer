@@ -353,7 +353,7 @@ elif menu == "🖥️ Entri Data Baru":
             # Validasi kolom wajib
             if not all([
                 business_segment, division, kode_debtor.strip(), st.session_state.selected_debtor.strip(), sales_name.strip(),
-                id_pol, id_pod, cabang_tagih.strip(), alamat_kirim_invoice.strip(), invoice_type, dokumen_dipilih
+                id_pol, id_pod, cabang_tagih.strip(), alamat_kirim_invoice.strip(), invoice_type, dokumen_terkait
             ]):
                 st.markdown("""
                     <div style='background-color: white; padding: 15px; border-radius: 10px;'>
@@ -363,6 +363,6 @@ elif menu == "🖥️ Entri Data Baru":
             else:
                 insert_customer_data((
                         business_segment, division, kode_debtor.strip(), st.session_state.selected_debtor.strip(), sales_name.strip(),
-                        id_pol, id_pod, cabang_tagih.strip(), alamat_kirim_invoice.strip(), invoice_type, ", ".join(dokumen_dipilih)
+                        id_pol, id_pod, cabang_tagih.strip(), alamat_kirim_invoice.strip(), invoice_type, ", ".join(dokumen_terkait)
                 ))
                 st.markdown("<div style='background-color:white; color:green; padding:10px;'>✅ Data Customer Guidance Invoicing berhasil disimpan.</div>", unsafe_allow_html=True)
