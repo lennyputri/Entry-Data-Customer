@@ -299,36 +299,24 @@ elif menu == "🖥️ Entri Data Baru":
     with st.form("form_customer_invoice"):
         col1, col2 = st.columns(2)
         with col1:
-            business_segment = st.selectbox(
-                "Business Segment".upper(), 
-                ["Domestic", "International"]
-            )
-            division = st.selectbox(
-                "Division".upper(),
-                ["Sea Freight", "Air Freight", "Custom", "Industrial Project", "Wh and Transport"]
-            )          
+            business_segment = st.selectbox("Business Segment".upper(), ["Domestic", "International"])
+            division = st.selectbox("Division".upper(),["Sea Freight", "Air Freight", "Custom", "Industrial Project", "Wh and Transport"])          
             debtor_names_list = ["Pilih Debtor"] + list(data_customer_mapping.keys())
-            debtor_name = st.selectbox(
-                "Debtor Name".upper(),
-                options=debtor_names_list,
-                key="selected_debtor"
-            )
-            # Trigger rerun saat user memilih Debtor
-            if "last_debtor" not in st.session_state:
-                st.session_state.last_debtor = None
-            if debtor_name != st.session_state.last_debtor:
-                st.session_state.last_debtor = debtor_name
+            if "selected_debtor" not in st.session_state:
+                st.session_state.selected_debtor = "Pilih Debtor"
+            new_name = st.selectbox("Debtor Name".upper(), options=debtor_names_list, index=debtor_names_list.index(st.session_state.selected_debtor))
+
+            if new_debtor != st.session_state.selected_debtor:
+                st.session_state.selected_debtor = new_debtor
                 st.rerun()
+                
+            debtor_name = st.session_state.selected_debtor
             
             id_pol_pod_cabangtagih_options = ["IDAMP", "IDAMQ", "IDBDJ", "IDBIT", "IDBLW", "IDBPN", "IDENE", "IDGTO", "IDJKT", "IDKDI", "IDKID", "IDKOE",
                                               "IDKTG", "IDLBO", "IDMKS", "IDMOF", "IDOTH", "IDPAP", "IDPDG", "IDPKX", "IDPNK", "IDPTL", "IDPWG", "IDSMG", "IDSMQ",
                                               "IDSRI", "IDSUB", "IDTKG", "IDTLI", "IDTRK", "IDTTE", "IDWIN"]
-            id_pol = st.selectbox(
-                "ID POL".upper(), ["Select"] + id_pol_pod_cabangtagih_options,
-            )
-            id_pod = st.selectbox(
-                "ID POD".upper(), ["Select"] + id_pol_pod_cabangtagih_options,
-            )
+            id_pol = st.selectbox("ID POL".upper(), ["Select"] + id_pol_pod_cabangtagih_options)
+            id_pod = st.selectbox("ID POD".upper(), ["Select"] + id_pol_pod_cabangtagih_options)
      
         with col2:
             if debtor_name in data_customer_mapping:
@@ -341,7 +329,7 @@ elif menu == "🖥️ Entri Data Baru":
                 alamat_kirim_invoice = st.text_area("Alamat Kirim Invoice".upper(), value=alamat_default, height=150, disabled=True)
             else:
                 kode_debtor = st.text_input("Kode Debtor".upper(), value="")
-                sales_name = st.text_input("Sales Name".upper(), value="")
+                sales_name = st.text_input("Sales Name".upper(), value="", disabled=True)
                 alamat_kirim_invoice = st.text_area("Alamat Kirim Invoice".upper(), value="", height=150)
                 
             cabang_tagih = st.selectbox("Cabang Tagih".upper(), ["Select"] + id_pol_pod_cabangtagih_options)
