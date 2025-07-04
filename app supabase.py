@@ -318,20 +318,20 @@ elif menu == "🖥️ Entri Data Baru":
     with st.form("form_customer_invoice"):
         col1, col2 = st.columns(2)
         with col1:
-            business_segment = st.selectbox("Business Segment".upper(), ["Domestic", "International"])
-            division = st.selectbox("Division".upper(),["Sea Freight", "Air Freight", "Custom", "Industrial Project", "Wh and Transport"])                    
+            business_segment = st.selectbox("Business Segment*".upper(), ["Domestic", "International"])
+            division = st.selectbox("Division*".upper(),["Sea Freight", "Air Freight", "Custom", "Industrial Project", "Wh and Transport"])                    
             id_pol_pod_cabangtagih_options = ["IDAMP", "IDAMQ", "IDBDJ", "IDBIT", "IDBLW", "IDBPN", "IDENE", "IDGTO", "IDJKT", "IDKDI", "IDKID", "IDKOE",
                                               "IDKTG", "IDLBO", "IDMKS", "IDMOF", "IDOTH", "IDPAP", "IDPDG", "IDPKX", "IDPNK", "IDPTL", "IDPWG", "IDSMG", "IDSMQ",
                                               "IDSRI", "IDSUB", "IDTKG", "IDTLI", "IDTRK", "IDTTE", "IDWIN"]
-            id_pol = st.selectbox("ID POL".upper(), ["Select"] + id_pol_pod_cabangtagih_options)
-            id_pod = st.selectbox("ID POD".upper(), ["Select"] + id_pol_pod_cabangtagih_options)
-            cabang_tagih = st.selectbox("Cabang Tagih".upper(),["Select"] +  id_pol_pod_cabangtagih_options)
+            id_pol = st.selectbox("ID POL*".upper(), ["Select"] + id_pol_pod_cabangtagih_options)
+            id_pod = st.selectbox("ID POD*".upper(), ["Select"] + id_pol_pod_cabangtagih_options)
+            cabang_tagih = st.selectbox("Cabang Tagih*".upper(),["Select"] +  id_pol_pod_cabangtagih_options)
         with col2:
-            st.text_input("Kode Debtor".upper(), value=kode_debtor, disabled=True)
-            st.text_input("Sales Name".upper(), value=sales_name, disabled=True)
-            st.text_area("Alamat Kirim Invoice".upper(), value=alamat_kirim_invoice, height=110, disabled=True)
-            invoice_type = st.selectbox("Invoice Type".upper(), ["Select"] + ["Hardcopy", "Softcopy"])
-            dokumen_dipilih = st.multiselect("Supporting Documents".upper(), ["KWITANSI", "REKAPAN", "INV FP", "RESI", "BATSB", "SI", "BL", "SURAT JALAN", "SJ PABRIK"])
+            st.text_input("Kode Debtor*".upper(), value=kode_debtor, disabled=True)
+            st.text_input("Sales Name*".upper(), value=sales_name, disabled=True)
+            st.text_area("Alamat Kirim Invoice*".upper(), value=alamat_kirim_invoice, height=110, disabled=True)
+            invoice_type = st.selectbox("Invoice Type*".upper(), ["Select"] + ["Hardcopy", "Softcopy"])
+            dokumen_dipilih = st.multiselect("Supporting Documents*".upper(), ["KWITANSI", "REKAPAN", "INV FP", "RESI", "BATSB", "SI", "BL", "SURAT JALAN", "SJ PABRIK"])
             dokumen_tambahan = st.text_input("Tambah Dokumen Lain (pisahkan dengan koma)".upper())
             st.caption("Kosongkan jika tidak ada dokumen tambahan.")
 
