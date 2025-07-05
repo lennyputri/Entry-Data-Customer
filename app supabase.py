@@ -337,7 +337,7 @@ elif menu == "🖥️ Entri Data Baru":
 
             # Gabung semua dokumen jadi satu list
             if dokumen_tambahan:
-                dokumen_tambahan_list = [d.strip() for d in dokumen_tambahan.split(",") if d.strip()]
+                dokumen_tambahan_list = [d.strip().upper() for d in dokumen_tambahan.split(",") if d.strip()]
             else:
                 dokumen_tambahan_list = []
 
