@@ -347,10 +347,19 @@ elif menu == "🖥️ Entri Data Baru":
         submitted = st.form_submit_button("SIMPAN DATA")
         if submitted:
             # Validasi kolom wajib
-            if not all([
-                business_segment, division, kode_debtor.strip(), st.session_state.selected_debtor.strip(), sales_name.strip(),
-                id_pol, id_pod, cabang_tagih.strip(), alamat_kirim_invoice.strip(), invoice_type, dokumen_terkait
-            ]):
+            if (
+                not business_segment or
+                not division or
+                not kode_debtor.strip() or
+                not st.session_state.selected_debtor.strip() or
+                not sales_name.strip() or
+                id_pol == "Select" or
+                id_pod == "Select" or
+                cabang_tagih == "Select" or
+                not alamat_kirim_invoice.strip() or
+                invoice_type == "Select" or
+                not dokumen_terkait
+            ):
                 st.markdown("""
                     <div style='background-color: white; padding: 15px; border-radius: 10px;'>
                         <span style='color: red; font-weight: bold;'>❌ Terdapat data yang belum diisi. Harap lengkapi semua kolom wajib.</span>
