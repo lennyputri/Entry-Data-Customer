@@ -41,7 +41,7 @@ def insert_customer_data(values):
         dokumen_terkait
     ) = values
 
-    dokumen_array = [d.strip() for d in dokumen_terkait.split(",") if d.strip()]  # convert jadi list
+    dokumen_array = [d.strip() for d in dokumen_terkait if d.strip()] 
 
     data = {
         "business_segment": business_segment,
