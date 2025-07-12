@@ -331,7 +331,7 @@ elif menu == "🖥️ Entri Data Baru":
             st.text_input("Sales Name*".upper(), value=sales_name, disabled=True)
             st.text_area("Alamat Kirim Invoice*".upper(), value=alamat_kirim_invoice, height=110, disabled=True)
             invoice_type = st.selectbox("Invoice Type*".upper(), ["Select"] + ["Hardcopy", "Softcopy"])
-            dokumen_dipilih = st.multiselect("Supporting Documents*".upper(), ["KWITANSI", "REKAPAN", "INV FP", "RESI", "BATSB", "SI", "BL", "SURAT JALAN", "SJ PABRIK"])
+            dokumen_dipilih = st.multiselect("Supporting Documents*".upper(), ["KWITANSI", "REKAPAN", "INV", "FP", "RESI", "BATSB", "SI", "BL", "SURAT JALAN", "SJ PABRIK"])
             dokumen_tambahan = st.text_input("Tambah Dokumen Lain (pisahkan dengan koma)".upper())
             st.caption("Kosongkan jika tidak ada dokumen tambahan.")
 
